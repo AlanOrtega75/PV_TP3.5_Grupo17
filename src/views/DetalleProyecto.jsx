@@ -1,13 +1,32 @@
-import React from 'react';
+import { useParams, Link } from 'react-router-dom';
+import { obtenerProyectoPorId } from '../services/proyectoService';
 
-const DetalleProyecto = ({ proyecto, onCerrar }) => {
-  if (!proyecto) return null;
+const DetalleProyecto = () => {
+  // el id viene de la URL (/proyectos/:id), por eso sobrevive a un F5
+  const { id } = useParams();
+  const proyecto = obtenerProyectoPorId(id);
+
+  // caso "no encontrado": si el id no existe muestro un aviso en vez de romper
+  if (!proyecto) {
+    return (
+      <section className="project-detail-panel">
+        <div className="detail-header">
+          <div>
+            <h2>Proyecto no encontrado</h2>
+            <p>No existe un proyecto con el identificador {id}.</p>
+          </div>
+          <Link to="/proyectos" className="secondary-button">
+            Volver a proyectos
+          </Link>
+        </div>
+      </section>
+    );
+  }
 
   const {
     titulo,
     categoria,
     estado,
-    id,
     descripcion,
     recursos = [],
     equipo = [],
@@ -20,9 +39,9 @@ const DetalleProyecto = ({ proyecto, onCerrar }) => {
           <h2>Detalle de proyecto</h2>
           <p>{titulo}</p>
         </div>
-        <button type="button" className="secondary-button" onClick={onCerrar}>
-          Cerrar
-        </button>
+        <Link to="/proyectos" className="secondary-button">
+          Volver
+        </Link>
       </div>
 
       <div className="detail-section">
@@ -55,9 +74,15 @@ const DetalleProyecto = ({ proyecto, onCerrar }) => {
       </div>
 
       <div className="detail-meta">
-        <p>ID: <strong>{id}</strong></p>
+        <p>ID: <strong>{proyecto.id}</strong></p>
         <p>Categoría: <strong>{categoria}</strong></p>
         <p>Estado: <strong>{estado}</strong></p>
+      </div>
+
+      <div className="detail-footer">
+        <Link to="/proyectos" className="primary-button">
+          Ver todos los proyectos
+        </Link>
       </div>
     </section>
   );

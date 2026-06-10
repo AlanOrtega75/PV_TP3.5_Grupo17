@@ -1,14 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 import { obtenerProyectos, agregarProyecto, eliminarProyecto, buscarProyecto } from '../services/proyectoService';
 import ProyectoCard from '../components/ProyectoCard';
-import DetalleProyecto from './DetalleProyecto';
 import FormularioProyecto from '../components/FormularioProyecto';
 import RegistroActividad from '../components/RegistroActividad';
 
 const ListaProyectos = () => {
   const [proyectos, setProyectos] = useState(obtenerProyectos());
   const [busqueda, setBusqueda] = useState('');
-  const [selectedProject, setSelectedProject] = useState(null);
   const [ultimaActualizacion, setUltimaActualizacion] = useState(null);
 
   // bandera para saber si hubo un alta o baja real
@@ -30,10 +28,6 @@ const ListaProyectos = () => {
   const handleEliminar = (id) => {
     huboCambio.current = true;
     setProyectos(eliminarProyecto(id));
-
-    if (selectedProject?.id === id) {
-      setSelectedProject(null);
-    }
   };
 
   const handleAgregarProyecto = (nuevoProyecto) => {
@@ -48,15 +42,6 @@ const ListaProyectos = () => {
 
   return (
     <div className="contenedor-proyectos">
-      <section className="project-panel" id="nuevo-proyecto">
-        <div className="project-panel-header">
-          <h2>Módulo de Proyectos</h2>
-          <p>Registra, filtra y administra tus proyectos desde una sola interfaz.</p>
-        </div>
-
-        <FormularioProyecto onAgregar={handleAgregarProyecto} />
-      </section>
-
       <section className="project-search-panel">
         <label htmlFor="buscarProyectos">Buscar proyectos</label>
         <input
@@ -81,7 +66,6 @@ const ListaProyectos = () => {
                 key={proy.id}
                 proyecto={proy}
                 onEliminar={handleEliminar}
-                onVerDetalle={setSelectedProject}
               />
             ))}
           </div>
@@ -92,9 +76,14 @@ const ListaProyectos = () => {
         {ultimaActualizacion && <RegistroActividad fecha={ultimaActualizacion} />}
       </section>
 
-      {selectedProject && (
-        <DetalleProyecto proyecto={selectedProject} onCerrar={() => setSelectedProject(null)} />
-      )}
+      <section className="project-panel" id="nuevo-proyecto">
+        <div className="project-panel-header">
+          <h2>Agregar nuevo proyecto</h2>
+          <p>Completá el formulario para registrar un proyecto en la lista.</p>
+        </div>
+
+        <FormularioProyecto onAgregar={handleAgregarProyecto} />
+      </section>
     </div>
   );
 };

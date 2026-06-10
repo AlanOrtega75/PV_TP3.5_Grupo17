@@ -1,6 +1,6 @@
-import React from 'react';
+import { Link } from 'react-router-dom';
 
-const ProyectoCard = ({ proyecto, onEliminar, onVerDetalle }) => {
+const ProyectoCard = ({ proyecto, onEliminar }) => {
   const { id, titulo, categoria, estado } = proyecto;
   return (
     <article className="project-card">
@@ -12,9 +12,9 @@ const ProyectoCard = ({ proyecto, onEliminar, onVerDetalle }) => {
       </div>
 
       <div className="project-card-footer">
-        <button type="button" className="secondary-button" onClick={() => onVerDetalle(proyecto)}>
+        <Link to={`/proyectos/${id}`} className="secondary-button">
           Ver detalle
-        </button>
+        </Link>
         <button type="button" className="secondary-button delete-button" onClick={() => onEliminar(id)}>
           Eliminar
         </button>

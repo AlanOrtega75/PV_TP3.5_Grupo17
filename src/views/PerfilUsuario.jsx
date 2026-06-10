@@ -10,9 +10,9 @@ import Typography from "@mui/material/Typography";
 
 function PerfilUsuario() {
   const usuario = {
-    nombre: "Bárbara",
-    apellido: "Alavar",
-    rol: "Alumna",
+    nombre: "Juan",
+    apellido: "Perez",
+    rol: "Alumno",
     institucion: "Facultad de Ingeniería - UNJu",
     materia: "Programación Visual",
   };
@@ -20,7 +20,7 @@ function PerfilUsuario() {
   return (
     <Container maxWidth="sm" sx={{ mt: 4 }}>
       <Paper elevation={3} sx={{ p: 4 }}>
-        <Box display="flex" flexDirection="column" alignItems="center" mb={3}>
+        <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", mb: 3 }}>
           <Avatar sx={{ width: 80, height: 80, mb: 2, bgcolor: "primary.main" }}>
             {usuario.nombre[0]}
           </Avatar>

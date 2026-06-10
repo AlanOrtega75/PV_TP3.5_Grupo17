@@ -94,6 +94,12 @@ const proyectoService = (() => {
     return [...proyectos];
   };
 
+  // busca un proyecto por id. el id puede venir como string (useParams) o
+  // como number (semilla/Date.now()), por eso comparo convirtiendo ambos a string.
+  const obtenerProyectoPorId = (id) => {
+    return proyectos.find((proy) => String(proy.id) === String(id));
+  };
+
   const agregarProyecto = (nuevoProyecto) => {
     const id = nuevoProyecto.id ? nuevoProyecto.id : Date.now();
 
@@ -128,6 +134,7 @@ const proyectoService = (() => {
 
   return {
     obtenerProyectos,
+    obtenerProyectoPorId,
     agregarProyecto,
     eliminarProyecto,
     buscarProyecto,
@@ -136,6 +143,7 @@ const proyectoService = (() => {
 
 export const {
   obtenerProyectos,
+  obtenerProyectoPorId,
   agregarProyecto,
   eliminarProyecto,
   buscarProyecto,
