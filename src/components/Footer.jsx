@@ -1,4 +1,4 @@
-import React from 'react';
+import { Link } from 'react-router-dom';
 
 function Footer() {
   return (
@@ -14,9 +14,9 @@ function Footer() {
         <div className="footer-column">
           <h3>Enlaces</h3>
           <ul>
-            <li><a href="#">Inicio</a></li>
-            <li><a href="#">Proyectos</a></li>
-            <li><a href="#">Perfil</a></li>
+            <li><Link to="/dashboard">Inicio</Link></li>
+            <li><Link to="/proyectos">Proyectos</Link></li>
+            <li><Link to="/perfil">Perfil</Link></li>
           </ul>
         </div>
         
@@ -49,7 +49,7 @@ function Footer() {
         <div className="footer-column">
           <h3>Información</h3>
           <p><strong>Materia:</strong> Programación Visual</p>
-          <p><strong>Trabajo Practico:</strong> 3.3 React + Vite</p>
+          <p><strong>Trabajo Practico:</strong> 3.4 React Router + MUI</p>
           <p><strong>Año:</strong> {new Date().getFullYear()}</p>
         </div>
       </div>
