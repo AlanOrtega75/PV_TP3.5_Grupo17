@@ -1,8 +1,13 @@
-import { useEffect, useRef, useState } from 'react';
-import { obtenerProyectos, agregarProyecto, eliminarProyecto, buscarProyecto } from '../services/proyectoService';
-import ProyectoCard from '../components/ProyectoCard';
-import FormularioProyecto from '../components/FormularioProyecto';
-import RegistroActividad from '../components/RegistroActividad';
+import { useEffect, useRef, useState } from "react";
+import {
+  obtenerProyectos,
+  agregarProyecto,
+  eliminarProyecto,
+  buscarProyecto,
+} from "../services/proyectoService";
+import ProyectoCard from "../components/ProyectoCard";
+import FormularioProyecto from "../components/FormularioProyecto";
+import RegistroActividad from "../components/RegistroActividad";
 import {
   Container,
   Box,
@@ -10,11 +15,11 @@ import {
   TextField,
   Grid,
   Paper,
-} from '@mui/material';
+} from "@mui/material";
 
 const ListaProyectos = () => {
   const [proyectos, setProyectos] = useState(obtenerProyectos());
-  const [busqueda, setBusqueda] = useState('');
+  const [busqueda, setBusqueda] = useState("");
   const [ultimaActualizacion, setUltimaActualizacion] = useState(null);
 
   // bandera para saber si hubo un alta o baja real
@@ -41,12 +46,14 @@ const ListaProyectos = () => {
   const handleAgregarProyecto = (nuevoProyecto) => {
     huboCambio.current = true;
     setProyectos(agregarProyecto(nuevoProyecto));
-    setBusqueda('');
+    setBusqueda("");
   };
 
   // si hay algo escrito en el buscador filtro, sino muestro la lista completa
   // el buscador no toca el estado proyectos, por eso no dispara el registro
-  const proyectosVisibles = busqueda.trim() ? buscarProyecto(busqueda) : proyectos;
+  const proyectosVisibles = busqueda.trim()
+    ? buscarProyecto(busqueda)
+    : proyectos;
 
   return (
     <Container maxWidth="lg" sx={{ py: 4 }}>
@@ -62,7 +69,18 @@ const ListaProyectos = () => {
         />
       </Box>
 
-      <Paper sx={{ p: 3, mb: 4 }} id="lista-proyectos">
+      <Paper
+        elevation={0}
+        sx={{
+          p: 4,
+          mb: 4,
+          borderRadius: 4,
+          border: "1px solid",
+          borderColor: "divider",
+          boxShadow: "0 20px 45px rgba(15, 23, 42, 0.08)",
+        }}
+        id="lista-proyectos"
+      >
         <Box sx={{ mb: 3 }}>
           <Typography variant="h5" component="h2">
             Base de datos de proyectos
@@ -77,10 +95,7 @@ const ListaProyectos = () => {
           <Grid container spacing={3}>
             {proyectosVisibles.map((proy) => (
               <Grid key={proy.id} size={{ xs: 12, sm: 6, md: 4 }}>
-                <ProyectoCard
-                  proyecto={proy}
-                  onEliminar={handleEliminar}
-                />
+                <ProyectoCard proyecto={proy} onEliminar={handleEliminar} />
               </Grid>
             ))}
           </Grid>
@@ -97,7 +112,18 @@ const ListaProyectos = () => {
         )}
       </Paper>
 
-      <Paper sx={{ p: 3 }} id="nuevo-proyecto">
+      <Paper
+        elevation={0}
+        sx={{
+          p: 4,
+          mb: 4,
+          borderRadius: 4,
+          border: "1px solid",
+          borderColor: "divider",
+          boxShadow: "0 20px 45px rgba(15, 23, 42, 0.08)",
+        }}
+        id="nuevo-proyecto"
+      >
         <Box sx={{ mb: 3 }}>
           <Typography variant="h5" component="h2">
             Agregar nuevo proyecto

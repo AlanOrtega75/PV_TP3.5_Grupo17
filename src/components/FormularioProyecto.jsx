@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from "react";
 import {
   Alert,
   Box,
@@ -11,15 +11,15 @@ import {
   Stack,
   TextField,
   Typography,
-} from '@mui/material';
+} from "@mui/material";
 
 const FormularioProyecto = ({ onAgregar }) => {
   const [formValues, setFormValues] = useState({
-    titulo: '',
-    idProyecto: '',
-    categoria: '',
-    estado: 'Pendiente',
-    descripcion: '',
+    titulo: "",
+    idProyecto: "",
+    categoria: "",
+    estado: "Pendiente",
+    descripcion: "",
   });
 
   // listas que se van armando con los botones "Agregar"
@@ -27,10 +27,13 @@ const FormularioProyecto = ({ onAgregar }) => {
   const [equipo, setEquipo] = useState([]);
 
   // inputs temporales: lo que se esta cargando antes de sumarlo a la lista
-  const [recursoActual, setRecursoActual] = useState({ tipo: 'GitHub', enlace: '' });
-  const [miembroActual, setMiembroActual] = useState({ nombre: '', rol: '' });
+  const [recursoActual, setRecursoActual] = useState({
+    tipo: "GitHub",
+    enlace: "",
+  });
+  const [miembroActual, setMiembroActual] = useState({ nombre: "", rol: "" });
 
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   const { titulo, idProyecto, categoria, estado, descripcion } = formValues;
 
@@ -49,8 +52,11 @@ const FormularioProyecto = ({ onAgregar }) => {
       return;
     }
 
-    setRecursos((prev) => [...prev, { tipo: recursoActual.tipo, enlace: recursoActual.enlace.trim() }]);
-    setRecursoActual({ tipo: 'GitHub', enlace: '' });
+    setRecursos((prev) => [
+      ...prev,
+      { tipo: recursoActual.tipo, enlace: recursoActual.enlace.trim() },
+    ]);
+    setRecursoActual({ tipo: "GitHub", enlace: "" });
   };
 
   const quitarRecurso = (indice) => {
@@ -63,11 +69,14 @@ const FormularioProyecto = ({ onAgregar }) => {
       return;
     }
 
-    setEquipo((prev) => [...prev, {
-      nombre: miembroActual.nombre.trim(),
-      rol: miembroActual.rol.trim() || 'Rol no definido',
-    }]);
-    setMiembroActual({ nombre: '', rol: '' });
+    setEquipo((prev) => [
+      ...prev,
+      {
+        nombre: miembroActual.nombre.trim(),
+        rol: miembroActual.rol.trim() || "Rol no definido",
+      },
+    ]);
+    setMiembroActual({ nombre: "", rol: "" });
   };
 
   const quitarMiembro = (indice) => {
@@ -78,7 +87,7 @@ const FormularioProyecto = ({ onAgregar }) => {
     e.preventDefault();
 
     if (!titulo.trim()) {
-      setError('El nombre del proyecto es obligatorio.');
+      setError("El nombre del proyecto es obligatorio.");
       return;
     }
 
@@ -87,7 +96,9 @@ const FormularioProyecto = ({ onAgregar }) => {
       titulo: titulo.trim(),
       categoria: categoria.trim(),
       estado,
-      descripcion: descripcion.trim() || 'Descripción general del proyecto. Este proyecto busca aportar una solución educativa clara, organizada y funcional.',
+      descripcion:
+        descripcion.trim() ||
+        "Descripción general del proyecto. Este proyecto busca aportar una solución educativa clara, organizada y funcional.",
       recursos,
       equipo,
     };
@@ -96,24 +107,24 @@ const FormularioProyecto = ({ onAgregar }) => {
 
     // limpio todo el formulario
     setFormValues({
-      titulo: '',
-      idProyecto: '',
-      categoria: '',
-      estado: 'Pendiente',
-      descripcion: '',
+      titulo: "",
+      idProyecto: "",
+      categoria: "",
+      estado: "Pendiente",
+      descripcion: "",
     });
     setRecursos([]);
     setEquipo([]);
-    setRecursoActual({ tipo: 'GitHub', enlace: '' });
-    setMiembroActual({ nombre: '', rol: '' });
-    setError('');
+    setRecursoActual({ tipo: "GitHub", enlace: "" });
+    setMiembroActual({ nombre: "", rol: "" });
+    setError("");
   };
 
   return (
     <Box
       component="form"
       onSubmit={handleSubmit}
-      sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}
+      sx={{ display: "flex", flexDirection: "column", gap: 3 }}
     >
       <TextField
         id="tituloProyecto"
@@ -140,8 +151,8 @@ const FormularioProyecto = ({ onAgregar }) => {
 
       <Box
         sx={{
-          display: 'grid',
-          gridTemplateColumns: { xs: '1fr', md: '1fr 1fr 1fr' },
+          display: "grid",
+          gridTemplateColumns: { xs: "1fr", md: "1fr 1fr 1fr" },
           gap: 2,
         }}
       >
@@ -189,7 +200,7 @@ const FormularioProyecto = ({ onAgregar }) => {
           Recursos
         </Typography>
 
-        <Stack direction={{ xs: 'column', md: 'row' }} spacing={2}>
+        <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
           <FormControl sx={{ minWidth: 160 }}>
             <InputLabel id="tipoRecursoLabel">Tipo</InputLabel>
             <Select
@@ -197,7 +208,9 @@ const FormularioProyecto = ({ onAgregar }) => {
               id="tipoRecurso"
               value={recursoActual.tipo}
               label="Tipo"
-              onChange={(e) => setRecursoActual((prev) => ({ ...prev, tipo: e.target.value }))}
+              onChange={(e) =>
+                setRecursoActual((prev) => ({ ...prev, tipo: e.target.value }))
+              }
             >
               <MenuItem value="GitHub">GitHub</MenuItem>
               <MenuItem value="Drive">Drive</MenuItem>
@@ -211,17 +224,36 @@ const FormularioProyecto = ({ onAgregar }) => {
             label="Enlace"
             placeholder="https://..."
             value={recursoActual.enlace}
-            onChange={(e) => setRecursoActual((prev) => ({ ...prev, enlace: e.target.value }))}
+            onChange={(e) =>
+              setRecursoActual((prev) => ({ ...prev, enlace: e.target.value }))
+            }
             fullWidth
           />
 
-          <Button type="button" variant="outlined" sx={{ textTransform: 'none' }} onClick={agregarRecurso}>
+          <Button
+            type="button"
+            variant="outlined"
+            onClick={agregarRecurso}
+            sx={{
+              textTransform: "none",
+              borderRadius: 1,
+              color: "#383636",
+              borderColor: "#94a3b8",
+              fontWeight: 700,
+            }}
+          >
             Agregar
           </Button>
         </Stack>
 
         {recursos.length > 0 && (
-          <Stack direction="row" spacing={1} useFlexGap flexWrap="wrap" sx={{ mt: 2 }}>
+          <Stack
+            direction="row"
+            spacing={1}
+            useFlexGap
+            flexWrap="wrap"
+            sx={{ mt: 2 }}
+          >
             {recursos.map((recurso, indice) => (
               <Chip
                 key={`${recurso.tipo}-${indice}`}
@@ -239,14 +271,16 @@ const FormularioProyecto = ({ onAgregar }) => {
           Equipo
         </Typography>
 
-        <Stack direction={{ xs: 'column', md: 'row' }} spacing={2}>
+        <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
           <TextField
             id="nombreMiembro"
             type="text"
             label="Nombre"
             placeholder="Nombre"
             value={miembroActual.nombre}
-            onChange={(e) => setMiembroActual((prev) => ({ ...prev, nombre: e.target.value }))}
+            onChange={(e) =>
+              setMiembroActual((prev) => ({ ...prev, nombre: e.target.value }))
+            }
             fullWidth
           />
 
@@ -257,17 +291,36 @@ const FormularioProyecto = ({ onAgregar }) => {
             label="Rol"
             placeholder="Rol"
             value={miembroActual.rol}
-            onChange={(e) => setMiembroActual((prev) => ({ ...prev, rol: e.target.value }))}
+            onChange={(e) =>
+              setMiembroActual((prev) => ({ ...prev, rol: e.target.value }))
+            }
             fullWidth
           />
 
-          <Button type="button" variant="outlined" sx={{ textTransform: 'none' }} onClick={agregarMiembro}>
+          <Button
+            type="button"
+            variant="outlined"
+            onClick={agregarMiembro}
+            sx={{
+              textTransform: "none",
+              borderRadius: 1,
+              color: "#383636",
+              borderColor: "#94a3b8",
+              fontWeight: 700,
+            }}
+          >
             Agregar
           </Button>
         </Stack>
 
         {equipo.length > 0 && (
-          <Stack direction="row" spacing={1} useFlexGap flexWrap="wrap" sx={{ mt: 2 }}>
+          <Stack
+            direction="row"
+            spacing={1}
+            useFlexGap
+            flexWrap="wrap"
+            sx={{ mt: 2 }}
+          >
             {equipo.map((miembro, indice) => (
               <Chip
                 key={`${miembro.nombre}-${indice}`}
@@ -282,7 +335,17 @@ const FormularioProyecto = ({ onAgregar }) => {
 
       {error && <Alert severity="error">{error}</Alert>}
 
-      <Button type="submit" variant="contained" sx={{ textTransform: 'none' }}>
+      <Button
+        type="submit"
+        variant="contained"
+        sx={{
+          textTransform: "none",
+          borderRadius: 2,
+          bgcolor: "#2563eb",
+          color: "#ffffff",
+          fontWeight: 700,
+        }}
+      >
         Agregar proyecto
       </Button>
     </Box>
