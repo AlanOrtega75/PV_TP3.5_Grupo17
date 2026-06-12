@@ -1,4 +1,17 @@
 import { useState } from 'react';
+import {
+  Alert,
+  Box,
+  Button,
+  Chip,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  Stack,
+  TextField,
+  Typography,
+} from '@mui/material';
 
 const FormularioProyecto = ({ onAgregar }) => {
   const [formValues, setFormValues] = useState({
@@ -97,152 +110,182 @@ const FormularioProyecto = ({ onAgregar }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="project-form">
-      <div className="project-form-row">
-        <label htmlFor="tituloProyecto">Nombre del proyecto</label>
-        <input
-          id="tituloProyecto"
-          name="titulo"
+    <Box
+      component="form"
+      onSubmit={handleSubmit}
+      sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}
+    >
+      <TextField
+        id="tituloProyecto"
+        name="titulo"
+        label="Nombre del proyecto"
+        type="text"
+        placeholder="Ej. Plataforma de Exámenes"
+        value={titulo}
+        onChange={handleChange}
+        fullWidth
+      />
+
+      <TextField
+        id="descripcionProyecto"
+        name="descripcion"
+        label="Descripción"
+        placeholder="Describe brevemente el proyecto"
+        value={descripcion}
+        onChange={handleChange}
+        multiline
+        rows={4}
+        fullWidth
+      />
+
+      <Box
+        sx={{
+          display: 'grid',
+          gridTemplateColumns: { xs: '1fr', md: '1fr 1fr 1fr' },
+          gap: 2,
+        }}
+      >
+        <TextField
+          id="idProyecto"
+          name="idProyecto"
+          label="ID"
           type="text"
-          placeholder="Ej. Plataforma de Exámenes"
-          value={titulo}
+          placeholder="Ej. 006"
+          value={idProyecto}
           onChange={handleChange}
+          fullWidth
         />
-      </div>
 
-      <div className="project-form-row">
-        <label htmlFor="descripcionProyecto">Descripción</label>
-        <textarea
-          id="descripcionProyecto"
-          name="descripcion"
-          placeholder="Describe brevemente el proyecto"
-          value={descripcion}
+        <TextField
+          id="categoriaProyecto"
+          name="categoria"
+          label="Categoría"
+          type="text"
+          placeholder="Ej. Web, Mobile, Desktop"
+          value={categoria}
           onChange={handleChange}
+          fullWidth
         />
-      </div>
 
-      <div className="project-form-grid">
-        <div className="project-form-row">
-          <label htmlFor="idProyecto">ID</label>
-          <input
-            id="idProyecto"
-            name="idProyecto"
-            type="text"
-            placeholder="Ej. 006"
-            value={idProyecto}
-            onChange={handleChange}
-          />
-        </div>
-
-        <div className="project-form-row">
-          <label htmlFor="categoriaProyecto">Categoría</label>
-          <input
-            id="categoriaProyecto"
-            name="categoria"
-            type="text"
-            placeholder="Ej. Web, Mobile, Desktop"
-            value={categoria}
-            onChange={handleChange}
-          />
-        </div>
-
-        <div className="project-form-row">
-          <label htmlFor="estadoProyecto">Estado</label>
-          <select
+        <FormControl fullWidth>
+          <InputLabel id="estadoProyectoLabel">Estado</InputLabel>
+          <Select
+            labelId="estadoProyectoLabel"
             id="estadoProyecto"
             name="estado"
             value={estado}
+            label="Estado"
             onChange={handleChange}
           >
-            <option value="Pendiente">Pendiente</option>
-            <option value="En Progreso">En Progreso</option>
-            <option value="Completado">Completado</option>
-          </select>
-        </div>
-      </div>
+            <MenuItem value="Pendiente">Pendiente</MenuItem>
+            <MenuItem value="En Progreso">En Progreso</MenuItem>
+            <MenuItem value="Completado">Completado</MenuItem>
+          </Select>
+        </FormControl>
+      </Box>
 
-      <div className="project-form-row">
-        <label htmlFor="enlaceRecurso">Recursos</label>
-        <div className="project-form-inline">
-          <select
-            id="tipoRecurso"
-            name="tipoRecurso"
-            value={recursoActual.tipo}
-            onChange={(e) => setRecursoActual((prev) => ({ ...prev, tipo: e.target.value }))}
-          >
-            <option value="GitHub">GitHub</option>
-            <option value="Drive">Drive</option>
-            <option value="PDF">PDF</option>
-          </select>
-          <input
+      <Box>
+        <Typography variant="subtitle1" sx={{ mb: 1 }}>
+          Recursos
+        </Typography>
+
+        <Stack direction={{ xs: 'column', md: 'row' }} spacing={2}>
+          <FormControl sx={{ minWidth: 160 }}>
+            <InputLabel id="tipoRecursoLabel">Tipo</InputLabel>
+            <Select
+              labelId="tipoRecursoLabel"
+              id="tipoRecurso"
+              value={recursoActual.tipo}
+              label="Tipo"
+              onChange={(e) => setRecursoActual((prev) => ({ ...prev, tipo: e.target.value }))}
+            >
+              <MenuItem value="GitHub">GitHub</MenuItem>
+              <MenuItem value="Drive">Drive</MenuItem>
+              <MenuItem value="PDF">PDF</MenuItem>
+            </Select>
+          </FormControl>
+
+          <TextField
             id="enlaceRecurso"
             type="text"
+            label="Enlace"
             placeholder="https://..."
             value={recursoActual.enlace}
             onChange={(e) => setRecursoActual((prev) => ({ ...prev, enlace: e.target.value }))}
+            fullWidth
           />
-          <button type="button" className="secondary-button" onClick={agregarRecurso}>
+
+          <Button type="button" variant="outlined" sx={{ textTransform: 'none' }} onClick={agregarRecurso}>
             Agregar
-          </button>
-        </div>
+          </Button>
+        </Stack>
 
         {recursos.length > 0 && (
-          <ul className="form-chips">
+          <Stack direction="row" spacing={1} useFlexGap flexWrap="wrap" sx={{ mt: 2 }}>
             {recursos.map((recurso, indice) => (
-              <li key={`${recurso.tipo}-${indice}`}>
-                <span>{recurso.tipo} — {recurso.enlace}</span>
-                <button type="button" onClick={() => quitarRecurso(indice)}>
-                  quitar
-                </button>
-              </li>
+              <Chip
+                key={`${recurso.tipo}-${indice}`}
+                label={`${recurso.tipo} — ${recurso.enlace}`}
+                onDelete={() => quitarRecurso(indice)}
+                variant="outlined"
+              />
             ))}
-          </ul>
+          </Stack>
         )}
-      </div>
+      </Box>
 
-      <div className="project-form-row">
-        <label htmlFor="nombreMiembro">Equipo</label>
-        <div className="project-form-inline">
-          <input
+      <Box>
+        <Typography variant="subtitle1" sx={{ mb: 1 }}>
+          Equipo
+        </Typography>
+
+        <Stack direction={{ xs: 'column', md: 'row' }} spacing={2}>
+          <TextField
             id="nombreMiembro"
             type="text"
+            label="Nombre"
             placeholder="Nombre"
             value={miembroActual.nombre}
             onChange={(e) => setMiembroActual((prev) => ({ ...prev, nombre: e.target.value }))}
+            fullWidth
           />
-          <input
+
+          <TextField
             id="rolMiembro"
             name="rolMiembro"
             type="text"
+            label="Rol"
             placeholder="Rol"
             value={miembroActual.rol}
             onChange={(e) => setMiembroActual((prev) => ({ ...prev, rol: e.target.value }))}
+            fullWidth
           />
-          <button type="button" className="secondary-button" onClick={agregarMiembro}>
+
+          <Button type="button" variant="outlined" sx={{ textTransform: 'none' }} onClick={agregarMiembro}>
             Agregar
-          </button>
-        </div>
+          </Button>
+        </Stack>
 
         {equipo.length > 0 && (
-          <ul className="form-chips">
+          <Stack direction="row" spacing={1} useFlexGap flexWrap="wrap" sx={{ mt: 2 }}>
             {equipo.map((miembro, indice) => (
-              <li key={`${miembro.nombre}-${indice}`}>
-                <span>{miembro.nombre} — {miembro.rol}</span>
-                <button type="button" onClick={() => quitarMiembro(indice)}>
-                  quitar
-                </button>
-              </li>
+              <Chip
+                key={`${miembro.nombre}-${indice}`}
+                label={`${miembro.nombre} — ${miembro.rol}`}
+                onDelete={() => quitarMiembro(indice)}
+                variant="outlined"
+              />
             ))}
-          </ul>
+          </Stack>
         )}
-      </div>
+      </Box>
 
-      {error && <p className="form-error">{error}</p>}
+      {error && <Alert severity="error">{error}</Alert>}
 
-      <button type="submit" className="primary-button">
+      <Button type="submit" variant="contained" sx={{ textTransform: 'none' }}>
         Agregar proyecto
-      </button>
-    </form>
+      </Button>
+    </Box>
   );
 };
 

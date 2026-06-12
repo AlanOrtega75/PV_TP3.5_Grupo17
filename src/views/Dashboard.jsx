@@ -64,7 +64,7 @@ function Dashboard() {
                       justifyContent: "center",
                       flexShrink: 0,
                       bgcolor: `${color}.light`,
-                      color: `${color}.main`,
+                      color: "#fff",
                     }}
                   >
                     <Icono fontSize="medium" />

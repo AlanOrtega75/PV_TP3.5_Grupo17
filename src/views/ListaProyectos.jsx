@@ -3,6 +3,14 @@ import { obtenerProyectos, agregarProyecto, eliminarProyecto, buscarProyecto } f
 import ProyectoCard from '../components/ProyectoCard';
 import FormularioProyecto from '../components/FormularioProyecto';
 import RegistroActividad from '../components/RegistroActividad';
+import {
+  Container,
+  Box,
+  Typography,
+  TextField,
+  Grid,
+  Paper,
+} from '@mui/material';
 
 const ListaProyectos = () => {
   const [proyectos, setProyectos] = useState(obtenerProyectos());
@@ -41,50 +49,68 @@ const ListaProyectos = () => {
   const proyectosVisibles = busqueda.trim() ? buscarProyecto(busqueda) : proyectos;
 
   return (
-    <div className="contenedor-proyectos">
-      <section className="project-search-panel">
-        <label htmlFor="buscarProyectos">Buscar proyectos</label>
-        <input
+    <Container maxWidth="lg" sx={{ py: 4 }}>
+      <Box sx={{ mb: 3 }}>
+        <TextField
           id="buscarProyectos"
+          label="Buscar proyectos"
           type="text"
           placeholder="Buscar por título, categoría o estado"
           value={busqueda}
           onChange={handleBuscar}
+          fullWidth
         />
-      </section>
+      </Box>
 
-      <section className="project-database" id="lista-proyectos">
-        <div className="project-database-header">
-          <h3>Base de datos de proyectos</h3>
-          <p>Revisa los proyectos guardados y elimina los que ya no necesites.</p>
-        </div>
+      <Paper sx={{ p: 3, mb: 4 }} id="lista-proyectos">
+        <Box sx={{ mb: 3 }}>
+          <Typography variant="h5" component="h2">
+            Base de datos de proyectos
+          </Typography>
+
+          <Typography variant="body2" color="text.secondary">
+            Revisa los proyectos guardados y elimina los que ya no necesites.
+          </Typography>
+        </Box>
 
         {proyectosVisibles.length > 0 ? (
-          <div className="project-list">
+          <Grid container spacing={3}>
             {proyectosVisibles.map((proy) => (
-              <ProyectoCard
-                key={proy.id}
-                proyecto={proy}
-                onEliminar={handleEliminar}
-              />
+              <Grid key={proy.id} size={{ xs: 12, sm: 6, md: 4 }}>
+                <ProyectoCard
+                  proyecto={proy}
+                  onEliminar={handleEliminar}
+                />
+              </Grid>
             ))}
-          </div>
+          </Grid>
         ) : (
-          <p className="empty-state">No hay proyectos registrados en este momento.</p>
+          <Typography color="text.secondary">
+            No hay proyectos registrados en este momento.
+          </Typography>
         )}
 
-        {ultimaActualizacion && <RegistroActividad fecha={ultimaActualizacion} />}
-      </section>
+        {ultimaActualizacion && (
+          <Box sx={{ mt: 3 }}>
+            <RegistroActividad fecha={ultimaActualizacion} />
+          </Box>
+        )}
+      </Paper>
 
-      <section className="project-panel" id="nuevo-proyecto">
-        <div className="project-panel-header">
-          <h2>Agregar nuevo proyecto</h2>
-          <p>Completá el formulario para registrar un proyecto en la lista.</p>
-        </div>
+      <Paper sx={{ p: 3 }} id="nuevo-proyecto">
+        <Box sx={{ mb: 3 }}>
+          <Typography variant="h5" component="h2">
+            Agregar nuevo proyecto
+          </Typography>
+
+          <Typography variant="body2" color="text.secondary">
+            Completá el formulario para registrar un proyecto en la lista.
+          </Typography>
+        </Box>
 
         <FormularioProyecto onAgregar={handleAgregarProyecto} />
-      </section>
-    </div>
+      </Paper>
+    </Container>
   );
 };
 

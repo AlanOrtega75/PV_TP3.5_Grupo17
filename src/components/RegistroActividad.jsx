@@ -1,10 +1,11 @@
+import { Alert } from '@mui/material';
 import formatearFecha from '../utils/formatearFecha';
 
 const RegistroActividad = ({ fecha }) => {
   return (
-    <div className="registro-actividad">
-      <p>{formatearFecha(fecha)}</p>
-    </div>
+    <Alert severity="info" className="registro-actividad">
+      {formatearFecha(fecha)}
+    </Alert>
   );
 };
 
