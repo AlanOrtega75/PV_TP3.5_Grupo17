@@ -49,7 +49,7 @@ function Footer() {
         <div className="footer-column">
           <h3>Información</h3>
           <p><strong>Materia:</strong> Programación Visual</p>
-          <p><strong>Trabajo Practico:</strong> 3.4 React Router + MUI</p>
+          <p><strong>Trabajo Practico:</strong> 3.5 React Router + MUI</p>
           <p><strong>Año:</strong> {new Date().getFullYear()}</p>
         </div>
       </div>
