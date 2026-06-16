@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 
 // Contexto global con los datos del usuario "logueado".
 const UsuarioContext = createContext();
@@ -12,8 +12,13 @@ const usuarioInicial = {
 };
 
 export function UsuarioProvider({ children }) {
-  const [usuario, setUsuario] = useState(usuarioInicial);
-
+  const [usuario, setUsuario] = useState(() => {
+  const guardado = localStorage.getItem("usuario");
+  return guardado ? JSON.parse(guardado) : usuarioInicial;
+});
+useEffect(() => {
+    localStorage.setItem("usuario", JSON.stringify(usuario));
+  }, [usuario]);
   // Actualiza el perfil mezclando los datos nuevos con los actuales.
   const actualizarPerfil = (nuevosDatos) => {
     setUsuario((anterior) => ({ ...anterior, ...nuevosDatos }));
