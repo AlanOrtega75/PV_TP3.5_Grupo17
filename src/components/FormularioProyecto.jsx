@@ -12,6 +12,9 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
+import LinkIcon from "@mui/icons-material/Link";
+import GroupsIcon from "@mui/icons-material/Groups";
 
 const FormularioProyecto = ({ onAgregar }) => {
   const [formValues, setFormValues] = useState({
@@ -195,10 +198,21 @@ const FormularioProyecto = ({ onAgregar }) => {
         </FormControl>
       </Box>
 
-      <Box>
-        <Typography variant="subtitle1" sx={{ mb: 1 }}>
-          Recursos
-        </Typography>
+      <Box
+        sx={{
+          p: 2.5,
+          borderRadius: 3,
+          border: "1px solid",
+          borderColor: "divider",
+          backgroundColor: "#f8fafc",
+        }}
+      >
+        <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 1.5 }}>
+          <LinkIcon fontSize="small" sx={{ color: "primary.main" }} />
+          <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
+            Recursos
+          </Typography>
+        </Stack>
 
         <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
           <FormControl sx={{ minWidth: 160 }}>
@@ -234,12 +248,22 @@ const FormularioProyecto = ({ onAgregar }) => {
             type="button"
             variant="outlined"
             onClick={agregarRecurso}
+            startIcon={<AddIcon />}
             sx={{
               textTransform: "none",
-              borderRadius: 1,
-              color: "#383636",
-              borderColor: "#94a3b8",
+              borderRadius: 2,
+              px: 2.5,
               fontWeight: 700,
+              color: "primary.main",
+              borderColor: "primary.main",
+              whiteSpace: "nowrap",
+              flexShrink: 0,
+              transition: "all .2s ease",
+              "&:hover": {
+                backgroundColor: "primary.main",
+                color: "#fff",
+                borderColor: "primary.main",
+              },
             }}
           >
             Agregar
@@ -266,10 +290,21 @@ const FormularioProyecto = ({ onAgregar }) => {
         )}
       </Box>
 
-      <Box>
-        <Typography variant="subtitle1" sx={{ mb: 1 }}>
-          Equipo
-        </Typography>
+      <Box
+        sx={{
+          p: 2.5,
+          borderRadius: 3,
+          border: "1px solid",
+          borderColor: "divider",
+          backgroundColor: "#f8fafc",
+        }}
+      >
+        <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 1.5 }}>
+          <GroupsIcon fontSize="small" sx={{ color: "primary.main" }} />
+          <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
+            Equipo
+          </Typography>
+        </Stack>
 
         <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
           <TextField
@@ -301,12 +336,22 @@ const FormularioProyecto = ({ onAgregar }) => {
             type="button"
             variant="outlined"
             onClick={agregarMiembro}
+            startIcon={<AddIcon />}
             sx={{
               textTransform: "none",
-              borderRadius: 1,
-              color: "#383636",
-              borderColor: "#94a3b8",
+              borderRadius: 2,
+              px: 2.5,
               fontWeight: 700,
+              color: "primary.main",
+              borderColor: "primary.main",
+              whiteSpace: "nowrap",
+              flexShrink: 0,
+              transition: "all .2s ease",
+              "&:hover": {
+                backgroundColor: "primary.main",
+                color: "#fff",
+                borderColor: "primary.main",
+              },
             }}
           >
             Agregar
@@ -338,12 +383,22 @@ const FormularioProyecto = ({ onAgregar }) => {
       <Button
         type="submit"
         variant="contained"
+        size="large"
+        startIcon={<AddIcon />}
         sx={{
           textTransform: "none",
           borderRadius: 2,
+          py: 1.25,
           bgcolor: "#2563eb",
           color: "#ffffff",
           fontWeight: 700,
+          boxShadow: "0 10px 24px rgba(37, 99, 235, 0.28)",
+          transition: "transform .2s ease, box-shadow .2s ease",
+          "&:hover": {
+            bgcolor: "#1d4ed8",
+            transform: "translateY(-2px)",
+            boxShadow: "0 14px 30px rgba(37, 99, 235, 0.36)",
+          },
         }}
       >
         Agregar proyecto

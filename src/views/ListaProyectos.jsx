@@ -15,7 +15,11 @@ import {
   TextField,
   Grid,
   Paper,
+  InputAdornment,
+  IconButton,
 } from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
+import CloseIcon from "@mui/icons-material/Close";
 
 const ListaProyectos = () => {
   const [proyectos, setProyectos] = useState(obtenerProyectos());
@@ -60,12 +64,45 @@ const ListaProyectos = () => {
       <Box sx={{ mb: 3 }}>
         <TextField
           id="buscarProyectos"
-          label="Buscar proyectos"
           type="text"
-          placeholder="Buscar por título, categoría o estado"
+          placeholder="Buscar por título, categoría o estado…"
           value={busqueda}
           onChange={handleBuscar}
           fullWidth
+          slotProps={{
+            input: {
+              startAdornment: (
+                <InputAdornment position="start">
+                  <SearchIcon sx={{ color: "primary.main" }} />
+                </InputAdornment>
+              ),
+              endAdornment: busqueda ? (
+                <InputAdornment position="end">
+                  <IconButton
+                    size="small"
+                    aria-label="Limpiar búsqueda"
+                    onClick={() => setBusqueda("")}
+                  >
+                    <CloseIcon fontSize="small" />
+                  </IconButton>
+                </InputAdornment>
+              ) : null,
+            },
+            htmlInput: { "aria-label": "Buscar proyectos" },
+          }}
+          sx={{
+            "& .MuiOutlinedInput-root": {
+              borderRadius: 999,
+              backgroundColor: "#ffffff",
+              boxShadow: "0 10px 30px rgba(15, 23, 42, 0.06)",
+              transition: "box-shadow .2s ease, border-color .2s ease",
+              "& fieldset": { borderColor: "transparent" },
+              "&:hover fieldset": { borderColor: "rgba(37, 99, 235, 0.35)" },
+              "&.Mui-focused": { boxShadow: "0 0 0 4px rgba(37, 99, 235, 0.12)" },
+              "&.Mui-focused fieldset": { borderColor: "primary.main" },
+            },
+            "& .MuiOutlinedInput-input": { py: 1.6 },
+          }}
         />
       </Box>
 

@@ -9,6 +9,7 @@ import {
   Stack,
   Box,
 } from "@mui/material";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
 const ProyectoCard = ({ proyecto, onEliminar }) => {
   const { id, titulo, categoria, estado } = proyecto;
@@ -93,11 +94,25 @@ const ProyectoCard = ({ proyecto, onEliminar }) => {
           to={`/proyectos/${id}`}
           variant="outlined"
           size="small"
+          endIcon={
+            <ArrowForwardIcon
+              sx={{ transition: "transform .22s ease", fontSize: 18 }}
+            />
+          }
           sx={{
             textTransform: "none",
             borderRadius: 2,
             px: 2,
             fontWeight: 600,
+            transition: "all .22s ease",
+            "&:hover": {
+              backgroundColor: "primary.main",
+              color: "#fff",
+              borderColor: "primary.main",
+              transform: "translateY(-2px)",
+              boxShadow: "0 8px 18px rgba(37, 99, 235, 0.28)",
+            },
+            "&:hover .MuiSvgIcon-root": { transform: "translateX(3px)" },
           }}
         >
           Ver detalle
